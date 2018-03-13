@@ -45,7 +45,7 @@
         pdf:null,
         slider:false,
         form:{
-          prefix:'A1',
+          prefix:'ALL',
           title:'试卷',
           row:10,
           col:4
@@ -56,7 +56,11 @@
       onClick() {
         this.spinShow = true;
         this.pdf = null;
-        getPdf(this.form).then(({data})=>{
+        let params = {...this.form};
+        if(this.form.prefix = "ALL"){
+          params.prefix = "";
+        }
+        getPdf(params).then(({data})=>{
           this.spinShow = false;
           this.pdf = data.response;
           this.slider = true;
