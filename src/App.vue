@@ -15,11 +15,11 @@ export default {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #216082;
   }
 
   #app{
     height: 100%;
     overflow: hidden;
+    background-color: #216082;
   }
 </style>
