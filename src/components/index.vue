@@ -6,6 +6,12 @@
         <FormItem label="计算类型">
           <Select>
             <Option value="A1" label="A1"></Option>
+            <Option value="D1" label="D1"></Option>
+            <Option value="D1" label="D1"></Option>
+            <Option value="D2" label="D2"></Option>
+            <Option value="M1" label="M1"></Option>
+            <Option value="S1" label="S1"></Option>
+            <Option value="S2" label="S2"></Option>
           </Select>
         </FormItem>
         <FormItem label="题目数量">
@@ -21,7 +27,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
+    name: 'index',
     data () {
       return {
         slider:false
