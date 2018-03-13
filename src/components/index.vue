@@ -6,12 +6,13 @@
       <Form :label-width="80">
         <FormItem label="计算类型">
           <Select  v-model="form.prefix">
-            <Option value="A1" label="A1"></Option>
-            <Option value="D1" label="D1"></Option>
-            <Option value="D2" label="D2"></Option>
-            <Option value="M1" label="M1"></Option>
-            <Option value="S1" label="S1"></Option>
-            <Option value="S2" label="S2"></Option>
+            <Option value="ALL" label="综合练习"></Option>
+            <Option value="A1" label="一位数加法"></Option>
+            <Option value="D1" label="一位数除法"></Option>
+            <Option value="D2" label="两位数除法"></Option>
+            <Option value="M1" label="一位数乘法"></Option>
+            <Option value="S1" label="一位数减法"></Option>
+            <Option value="S2" label="两位数减法"></Option>
           </Select>
         </FormItem>
         <FormItem label="试卷标题">
