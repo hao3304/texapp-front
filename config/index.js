@@ -11,21 +11,19 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '^/tex/*': {
-        target: 'http://202.121.179.40:8360/tex/',
-        changeOrigin: true,
+      "/api/*":{
+        target:"http://202.121.179.40:8360",
         secure: false
       },
-      '^/api/*': {
-        target: 'http://202.121.179.40:8360/api/',
-        changeOrigin: true,
+      "/tex/*":{
+        target:"http://202.121.179.40:8360",
         secure: false
       }
     },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
-    port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

@@ -1,12 +1,12 @@
 <template>
-  <div >
+  <div style="height: 100%;'">
     <div class="config-form " :class="{slider:slider}">
+      <Spin size="large" fix v-if="spinShow"></Spin>
       <h1>试卷生成器</h1>
       <Form :label-width="80">
         <FormItem label="计算类型">
-          <Select>
+          <Select  v-model="form.prefix">
             <Option value="A1" label="A1"></Option>
-            <Option value="D1" label="D1"></Option>
             <Option value="D1" label="D1"></Option>
             <Option value="D2" label="D2"></Option>
             <Option value="M1" label="M1"></Option>
@@ -14,28 +14,52 @@
             <Option value="S2" label="S2"></Option>
           </Select>
         </FormItem>
-        <FormItem label="题目数量">
-          <Input type="number" placeholder="请输入" />
+        <FormItem label="试卷标题">
+          <Input placeholder="请输入"  v-model="form.title" />
+        </FormItem>
+        <FormItem label="题目行数">
+          <Input placeholder="请输入"  v-model="form.row" type="number" />
+        </FormItem>
+        <FormItem label="题目列数">
+          <Input placeholder="请输入" v-model="form.col" type="number" />
         </FormItem>
       </Form>
       <div>
         <Button @click="onClick" type="success" style="width: 100%" size="large">生成</Button>
       </div>
     </div>
+    <embed v-if="pdf" class="pdf-block" :src="'/tex/'+ pdf">
   </div>
 </template>
 
 <script>
+
+  import { getPdf } from '../service';
+
   export default {
     name: 'index',
     data () {
       return {
-        slider:false
+        spinShow:false,
+        pdf:null,
+        slider:false,
+        form:{
+          prefix:'A1',
+          title:'试卷',
+          row:10,
+          col:4
+        }
       }
     },
     methods:{
       onClick() {
-        this.slider = true;
+        this.spinShow = true;
+        this.pdf = null;
+        getPdf(this.form).then(({data})=>{
+          this.spinShow = false;
+          this.pdf = data.response;
+          this.slider = true;
+        })
       }
     }
   }
@@ -70,5 +94,12 @@
       bottom: 0;
       border-radius: 0;
     }
+
+  }
+
+  .pdf-block{
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    height: 100%;
   }
 </style>
