@@ -46,7 +46,7 @@
         slider:false,
         form:{
           prefix:'ALL',
-          title:'试卷',
+          title:'练习题',
           row:10,
           col:4
         }
