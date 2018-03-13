@@ -12,8 +12,10 @@
               src:""
             }
         },
-        mounted() {
-          this.src = this.$route.params.id;
+      beforeRouteEnter(to,from,next) {
+          next(vm=>{
+            vm.src = vm.$route.params.id;
+          })
         }
     }
 </script>

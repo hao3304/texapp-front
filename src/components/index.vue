@@ -58,8 +58,8 @@
       onClick() {
         this.spinShow = true;
         this.pdf = null;
-        let params = {...this.from};
-        if(this.form.prefix == "ALL"){
+        let params = {...this.form};
+        if(params.prefix == "ALL"){
           params.prefix = "";
         }
         getPdf(params).then(({data})=>{
