@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%;'">
+  <div class="index-page" :class="{'mobile':!pc}">
     <div class="config-form " :class="{slider:slider}">
       <Spin size="large" fix v-if="spinShow"></Spin>
       <h1>试卷生成器</h1>
@@ -29,13 +29,14 @@
         <Button @click="onClick" type="success" style="width: 100%" size="large">生成</Button>
       </div>
     </div>
-    <embed v-if="pdf" class="pdf-block" :src="'/tex/'+ pdf">
+    <embed v-if="pdf" class="pc-viewer" :src="'/tex/'+ pdf">
   </div>
 </template>
 
 <script>
 
   import { getPdf } from '../service';
+  import {IsPC} from '../modules/tools'
 
   export default {
     name: 'index',
@@ -44,6 +45,7 @@
         spinShow:false,
         pdf:null,
         slider:false,
+        pc:IsPC(),
         form:{
           prefix:'ALL',
           title:'练习题',
@@ -56,14 +58,18 @@
       onClick() {
         this.spinShow = true;
         this.pdf = null;
-        let params = {...this.form};
-        if(this.form.prefix = "ALL"){
+        let params = {...this.from};
+        if(this.form.prefix == "ALL"){
           params.prefix = "";
         }
         getPdf(params).then(({data})=>{
           this.spinShow = false;
-          this.pdf = data.response;
-          this.slider = true;
+          if(this.pc) {
+            this.pdf = data.response;
+            this.slider = true;
+          }else{
+            this.$router.push(`/mobile/${data.response}`)
+          }
         })
       }
     }
@@ -73,38 +79,54 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 
-  .config-form{
-    h1{
-      text-align: center;
-      margin-bottom: 20px;
-      color: brown;
+  .index-page{
+    height: 100%;background-color: #216082;
+
+    .config-form{
+      h1{
+        text-align: center;
+        margin-bottom: 20px;
+        color: brown;
+      }
+      width: 500px;
+      position: absolute;
+      left: 50%;
+      top:20%;
+      margin-left: -250px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 1px 2px 2px rgba(0,0,0,.4);
+      transition: all .4s;
+      &.slider{
+        left: 0;
+        margin-left: 0;
+        width: 300px;
+        top:0;
+        bottom: 0;
+        border-radius: 0;
+      }
     }
-    width: 500px;
-    position: absolute;
-    left: 50%;
-    top:20%;
-    margin-left: -250px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 1px 2px 2px rgba(0,0,0,.4);
 
-    transition: all .4s;
+    &.mobile {
+      background-color:#fff;
 
-    &.slider{
-      left: 0;
-      margin-left: 0;
-      width: 300px;
-      top:0;
-      bottom: 0;
-      border-radius: 0;
+      .config-form{
+        width: 100%;
+        height: 100%;
+        top:0;
+        margin: 0;
+        left: 0;
+      }
+    }
+
+    .pc-viewer{
+      margin-left: 300px;
+      width: calc(100% - 300px);
+      height: 100%;
     }
 
   }
 
-  .pdf-block{
-    margin-left: 300px;
-    width: calc(100% - 300px);
-    height: 100%;
-  }
+
 </style>
