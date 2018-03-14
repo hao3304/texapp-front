@@ -19,11 +19,11 @@
           <Input placeholder="请输入"  v-model="form.title" />
         </FormItem>
         <FormItem label="题目行数">
-          <Input placeholder="请输入"  v-model="form.row" type="number" />
+          <InputNumber :max="18" style="width: 100%" :min="1" v-model="form.row"></InputNumber>
         </FormItem>
-        <FormItem label="题目列数">
-          <Input placeholder="请输入" v-model="form.col" type="number" />
-        </FormItem>
+        <!--<FormItem label="题目列数">-->
+          <!--<Input placeholder="请输入" v-model="form.col" type="number" />-->
+        <!--</FormItem>-->
       </Form>
       <div>
         <Button @click="onClick" type="success" style="width: 100%" size="large">生成</Button>
